@@ -143,7 +143,7 @@ public class Test {
      * looks for the input id in the array ids
      *
      * @param ids: array of student IDs
-     * @param id       to find* @return index of the element with ID equal to id
+     * @param id   to find* @return index of the element with ID equal to id
      **/
     public static int findStudentID(int[] ids, int id) {
         for (int i = 0; i < ids.length; i++) {
@@ -154,8 +154,9 @@ public class Test {
 
     /**
      * orders the array names in alphabetical order
+     *
      * @param : three arrays for student names, IDs, and GPAs
-     * no return value
+     *          no return value
      */
     public static void sortNames(String[] names, int[] ids, double[] gpas) {
         for (int i = 0; i < names.length; i++) {
@@ -176,9 +177,9 @@ public class Test {
     /**
      * swaps elementsatindicesi and j
      *
-     * @param i: first index in the input array
-     * @param j: second index in the input array
-     *           no return value
+     * @param i:     first index in the input array
+     * @param j:     second index in the input array
+     *               no return value
      * @param names: of String, int, or double elements
      */
     public static void swap(String[] names, int i, int j) {
