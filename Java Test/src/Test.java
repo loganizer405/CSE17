@@ -16,7 +16,7 @@ public class Test {
         String[] studentNames = new String[students];
         double[] studentGPAs = new double[students];
         int[] studentIDs = new int[students];
-        int operation = 0;
+        int operation;
         keyboard.nextLine();
         inputData(keyboard, studentNames, studentIDs, studentGPAs);
         do {
@@ -25,10 +25,10 @@ public class Test {
                 case 1:
                     System.out.print("Enter student ID: ");
                     int id = keyboard.nextInt();
-                    int i = findStudentID(studentIDs, id);
+                    int i = binarySearchStudentID(studentIDs, id);
                     if (i == -1) System.out.println(id + " not found.");
                     else
-                        System.out.println("IDfound,Name: " + studentNames[i] + ", GPA: " + studentGPAs[i]);
+                        System.out.println("ID found, Name: " + studentNames[i] + ", GPA: " + studentGPAs[i]);
                     break;
                 case 2:
                     displayData(studentNames, studentIDs, studentGPAs);
@@ -40,6 +40,26 @@ public class Test {
                 case 4:
                     sortNames(studentNames, studentIDs, studentGPAs);
                     displayData(studentNames, studentIDs, studentGPAs);
+                    break;
+                case 5:
+                    sortIDs(studentIDs, studentNames, studentGPAs);
+                    displayData(studentNames, studentIDs, studentGPAs);
+                    break;
+                case 6:
+                    sortGPAs(studentIDs, studentNames, studentGPAs);
+                    displayData(studentNames, studentIDs, studentGPAs);
+                    break;
+                case 7:
+                    int high = highestGPA(studentGPAs);
+                    System.out.printf("Highest GPA: %5.2f\n", studentGPAs[high]);
+                    System.out.println("Student name: " + studentNames[high]);
+                    System.out.println("Student ID: " + studentIDs[high]);
+                    break;
+                case 8:
+                    int low = lowestGPA(studentGPAs);
+                    System.out.printf("Lowest GPA: %5.2f\n", studentGPAs[low]);
+                    System.out.println("Student name: " + studentNames[low]);
+                    System.out.println("Student ID: " + studentIDs[low]);
                     break;
                 case 9:
                     System.out.println("Thank you for using my program.");
@@ -104,9 +124,9 @@ public class Test {
             printMenu();
             if (input.hasNextInt()) {
                 op = input.nextInt();
-                if (op >= 1 && op <= 4 || op == 9) break;
+                if (op >= 1 && op <= 8 || op == 9) break;
                 else
-                    System.out.println("Invalid operation(1-4 or 9)");
+                    System.out.println("Invalid operation(1-9)");
             } else {
                 input.nextLine();
                 System.out.println("Invalid operation(must be integer)");
@@ -122,6 +142,10 @@ public class Test {
         System.out.println(" 2: View all students");
         System.out.println(" 3: View average GPA");
         System.out.println(" 4: Sort students by name");
+        System.out.println(" 5: Sort students by IDs");
+        System.out.println(" 6: Sort students by GPAs");
+        System.out.println(" 7: Display student with highest GPA");
+        System.out.println(" 8: Display student with lowest GPA");
         System.out.println(" 9: Exit program");
     }
 
@@ -186,6 +210,115 @@ public class Test {
         String temp = names[i];
         names[i] = names[j];
         names[j] = temp;
+    }
+
+    public static int binarySearchStudentID(int[] ids, int key) {
+        int low = 0;
+        int high = ids.length - 1;
+        int mid;
+        while (high >= low) {
+            mid = (high + low) / 2;
+            if (ids[mid] == key)
+                return mid;
+            else if (ids[mid] > key)
+                high = mid - 1;
+            else //ids[mid] < key
+                low = mid + 1;
+        }
+        //if nothing has been returned
+        return -1;
+    }
+
+    public static void sortIDs(int[] ids, String[] names, double[] gpas) {
+        int minIndex;
+        //store temps to switch
+        int tempID;
+        double tempGPA;
+        String tempName;
+        for (int i = 0; i < ids.length - 1; i++) {
+            //get min index
+            minIndex = findMin(ids, i);
+            //switch ids, gpas, names
+            tempID = ids[i];
+            tempName = names[i];
+            tempGPA = gpas[i];
+            ids[i] = ids[minIndex];
+            names[i] = names[minIndex];
+            gpas[i] = gpas[minIndex];
+            ids[minIndex] = tempID;
+            names[minIndex] = tempName;
+            gpas[minIndex] = tempGPA;
+        }
+    }
+
+    public static void sortGPAs(int[] ids, String[] names, double[] gpas) {
+        for (int i = 1; i < ids.length; i++) {
+            //insertion sort, keep gpas and names
+            insert(ids, i);
+            insertString(names, i);
+            insertDouble(gpas, i);
+        }
+    }
+    public static int highestGPA(double[] gpas){
+        double max = gpas[0];
+        int index = 0;
+        for(int i = 1; i < gpas.length; i++){
+            if(gpas[i] > max) {
+                max = gpas[i];
+                index = i;
+            }
+        }
+        return index;
+    }
+    public static int lowestGPA(double[] gpas){
+        double min = gpas[0];
+        int index = 0;
+        for(int i = 1; i < gpas.length; i++){
+            if(gpas[i] < min) {
+                min = gpas[i];
+                index = i;
+            }
+        }
+        return index;
+    }
+    public static void insert(int[] list, int i) {
+        int currentVal = list[i];
+        while (i > 0 && currentVal < (list[i - 1])) {   // Shift element i-1 into element i
+            list[i] = list[i - 1];
+            i--;
+        }
+        //switch back
+        list[i] = currentVal;
+    }
+    public static void insertString(String[] list, int i){
+        //same function as above but with string
+        String currentVal = list[i];
+        while (i > 0) {
+            list[i] = list[i - 1];
+            i--;
+        }
+        list[i] = currentVal;
+    }
+    public static void insertDouble(double[] list, int i){
+        //same function as above but double
+        double currentVal = list[i];
+        while (i > 0 && currentVal < (list[i - 1])) {      // Shift element (i-1) into element (i)
+            list[i] = list[i - 1];
+            i--;
+        }
+        list[i] = currentVal;
+    }
+    public static int findMin(int[] list, int start) {
+        //gets min value in a list and returns index(for sort)
+        int min = list[start];
+        int index = start;
+        for (int i = start; i < list.length; i++) {
+            if (list[i] < min) {
+                min = list[i];
+                index = i;
+            }
+        }
+        return index;
     }
 
     public static void swap(int[] ids, int i, int j) {
