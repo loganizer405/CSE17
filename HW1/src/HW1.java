@@ -50,7 +50,7 @@ public class HW1 {
                 catch (NumberFormatException e) { //not integer
                     System.out.println("All values must be integers!");
                     exception = true; //this is to make sure this loop does not complete
-                    if(list.length != length) //check for length too
+                    if (list.length != length) //check for length too
                         System.out.println("Incorrect length entered! (must be " + length + ")");
                     break; //exit for loop so that this all runs again
                 }
@@ -183,5 +183,4 @@ public class HW1 {
         }
         return list;
     }
-
 }
