@@ -29,16 +29,8 @@ public class GradeBookTest {
                 case 1:
                     System.out.print("Enter student ID: ");
                     int id = input.nextInt();
-                    boolean found = false;
-                    for (int i = 0; i < studentList.length; i++) {
-                        if (studentList[i].getID() == id) {
-                            //if id matches, print student information
-                            System.out.println("ID found, " + studentList[i].toString());
-                            found = true;
-                        }
-                    }
-                    if(!found) //if not found, display message
-                        System.out.println("ID not found. ");
+                    //if finds ID, print student info, if not found, print id not found
+                    System.out.println(grades.findStudentID(id).equals("") ? "ID not found. " : "ID found, " + grades.findStudentID(id));
                     break;
                 case 2: //display all info
                     grades.display();
@@ -51,10 +43,10 @@ public class GradeBookTest {
                     grades.display();
                     break;
                 case 5: //find lowest gpa and display student
-                    System.out.println("Lowest GPA student: " + studentList[grades.lowestGPA()].toString());
+                    System.out.println("Lowest GPA student: " + grades.lowestGPA());
                     break;
                 case 6: //find highest gpa and display student
-                    System.out.println("Highest GPA student: " + studentList[grades.highestGPA()].toString());
+                    System.out.println("Highest GPA student: " + grades.highestGPA());
                     break;
                 case 7: //exit program
                     System.out.println("Exiting program");
