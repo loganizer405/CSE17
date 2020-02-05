@@ -56,7 +56,7 @@ public class GradeBookTest {
     }
 
     public static int getOperation(Scanner input) {
-        int op = 0;
+        int op;
         do { //display menu
             System.out.println("Available operations: ");
             System.out.println("1: Find student ID");
