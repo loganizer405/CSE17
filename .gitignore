@@ -35,3 +35,11 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Images and Publisher files #
+##############################
+*.jpg
+*.jpeg
+*.tiff
+*.gif
+*.pub
