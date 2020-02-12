@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class Test {
     public static void main(String[] args) {
+        System.out.println(1 % 20 + 2);
         System.out.println("test ");
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Enter the number of students: ");
