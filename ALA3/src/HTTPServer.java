@@ -19,7 +19,7 @@ public class HTTPServer {
         do {
             operation = getOperation(input);
             switch (operation) {
-                case 1:
+                case 1: //add url
                     System.out.print("Enter page URL: ");
                     String link = input.nextLine();
                     link = input.nextLine();
@@ -32,13 +32,13 @@ public class HTTPServer {
 
                     requestStack.push(link);
                     break;
-                case 2:
+                case 2: //show last request
                     if (requestStack.empty())
                         System.out.println("Stack is empty. ");
                     else
                         System.out.printf("Last request: %s \n", requestStack.top());
                     break;
-                case 3:
+                case 3: //remove last request
                     if (requestStack.empty())
                         System.out.println("Stack is empty. ");
                     else
