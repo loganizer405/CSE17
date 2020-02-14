@@ -1,4 +1,3 @@
-import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.Scanner;
 
 /**
@@ -11,43 +10,41 @@ import java.util.Scanner;
  */
 public class TestBank {
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        Bank.monthlyFee = 20;
-        BankAccount[] listAccounts = new BankAccount[5];
+        Scanner input = new Scanner(System.in); //initialize scanner
+        Bank.monthlyFee = 20; //set monthly fee
+        BankAccount[] listAccounts = new BankAccount[5]; //initialize bank accounts
         listAccounts[0] = new BankAccount("John Blake", 12534, 1200);
         listAccounts[1] = new BankAccount("Sarah Brown", 44422, 2045);
         listAccounts[2] = new BankAccount("Emma Johnson", 33322, 450);
         listAccounts[3] = new BankAccount("Suzan Jones", 55500, 23000);
         listAccounts[4] = new BankAccount("Mary Chen", 11111, 550);
-        Bank myBank = new Bank("MyBank", "Bethlehem", listAccounts);
-        //operations
-        int mainOperation;
-        int operation;
+        Bank myBank = new Bank("MyBank", "Bethlehem", listAccounts); //initialize bank
+        int mainOperation; //keeps track of menu operation
+        int operation; //keeps track of account menu operation
         do {
-            mainOperation = getMainOperation(input);
+            mainOperation = getMainOperation(input); //get operation, switch
             switch (mainOperation) {
                 case 1: //manage account
-                    BankAccount acc;
-                    while (true) { //get account
-                        acc = myBank.findAccount(getNum(input));
-                        if (acc != null) //if account found
-                            break;
+                    int acc = getNum(input);
+                    //if account found
+                    while (myBank.findAccount(acc) == null) { //get account, while null repeat
                         System.out.println("Account not found!");
+                        acc = getNum(input);
                     }
                     do { //run until 4 is entered and return to main menu
                         operation = getOperation(input);
                         switch (operation) {
                             case 1: //view balance
-                                System.out.printf("Balance: $%.2f\n", acc.getBalance());
+                                System.out.printf("Balance: $%.2f\n", myBank.viewBalance(acc));
                                 break;
                             case 2: //deposit
                                 //get amount
                                 int depositAmount;
                                 do {
                                     System.out.print("Enter amount to deposit: ");
-                                    if(input.hasNextInt()){
+                                    if (input.hasNextInt()) {
                                         depositAmount = input.nextInt();
-                                        if(depositAmount <= 0) //if negative
+                                        if (depositAmount <= 0) //if negative
                                             System.out.println("Must enter a positive integer! ");
                                         else //if positive, break loop
                                             break;
@@ -57,8 +54,8 @@ public class TestBank {
                                         System.out.println("Must enter an integer! ");
                                     }
                                 } while (true);
-                                acc.deposit(depositAmount); //deposit
-                                System.out.printf("New balance: $%.2f\n", acc.getBalance());
+                                myBank.deposit(acc, depositAmount); //deposit
+                                System.out.printf("New balance: $%.2f\n", myBank.viewBalance(acc)); //print balance
                                 break;
                             case 3: //withdraw
                                 //get amount
@@ -77,16 +74,16 @@ public class TestBank {
                                         System.out.println("Must enter an integer! ");
                                     }
                                 } while (true);
-                                if(acc.withdraw(withdrawAmount)) //if successful
-                                    System.out.printf("New balance: $%.2f\n", acc.getBalance());
+                                if (myBank.withdraw(acc, withdrawAmount)) //if successful
+                                    System.out.printf("Withdrawal successful, new balance: $%.2f\n", myBank.viewBalance(acc));
                                 else
-                                    System.out.println("Withdraw failed! Not enough credit.");
+                                    System.out.println("Withdrawal failed! Not enough credit.");
                                 break;
                             case 4: //back to main menu
                                 System.out.println("Returning to main menu...");
                                 break;
                         }
-                    } while (operation != 4);
+                    } while (operation != 4); //loop ends when 4 is inputted
                     break;
                 case 2: //apply monthly fee
                     myBank.applyMonthlyFee();
@@ -99,13 +96,13 @@ public class TestBank {
                     System.out.println("Exiting program...");
                     break;
             }
-        } while (mainOperation != 4); //this loop ends when 7 is inputted
+        } while (mainOperation != 4); //this loop ends when 4 is inputted
     }
 
     public static int getNum(Scanner input) {
         do {
             System.out.print("Enter account number: ");
-            if (input.hasNextInt()) {
+            if (input.hasNextInt()) { //get input, give error if not five digits or not integer
                 int acc = input.nextInt();
                 if (acc >= 100000 || acc < 5000)
                     System.out.println("Must enter a five digit integer!");
@@ -144,7 +141,7 @@ public class TestBank {
     public static int getOperation(Scanner input) {
         int op;
         do { //display menu
-            System.out.println("Available operations: ");
+            System.out.println("Available operations (Account menu):");
             System.out.println("1: View balance");
             System.out.println("2: Deposit");
             System.out.println("3: Withdraw");
@@ -161,6 +158,5 @@ public class TestBank {
             }
         } while (true);
         return op;
-
     }
 }
