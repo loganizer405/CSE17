@@ -1,14 +1,17 @@
-public class File extends Document {
+public class File extends Document { //class inherited from Document
     private String pathname;
-    File(){
+
+    File() {
         super("");
         pathname = "";
     }
-    File(String pathname, String text){
+
+    File(String pathname, String text) {
         super(text);
         this.pathname = pathname;
     }
-    public String toString() {
+
+    public String toString() { //override: prints file
         return "Pathname: " + pathname + "\nText:\n" + getText();
     }
 }
