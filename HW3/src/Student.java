@@ -47,6 +47,6 @@ public class Student extends Person {
     }
 
     public boolean equals(Object obj) {
-        return this.id == ((Student) obj).getID();
+        return obj instanceof Student && id == ((Student) obj).getID();
     }
 }

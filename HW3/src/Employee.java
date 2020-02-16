@@ -38,6 +38,6 @@ public class Employee extends Person {
     }
 
     public boolean equals(Object obj) {
-        return this.id == ((Employee) obj).getID();
+        return obj instanceof Employee && id == ((Employee) obj).getID();
     }
 }

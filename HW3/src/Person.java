@@ -34,6 +34,6 @@ public class Person {
     }
 
     public boolean equals(Object obj) {
-        return this.name.equals(((Person) obj).getName());
+        return obj instanceof Person && name.equals(((Person) obj).getName());
     }
 }
