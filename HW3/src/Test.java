@@ -1,5 +1,5 @@
 /**
- * Program name: ALA3
+ * Program name: HW3
  * Uses classes for people, students, employees (part time and full time) and prints information
  *
  * @author Logan Kramer

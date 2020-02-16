@@ -1,3 +1,11 @@
+/**
+ * Program name: ALA4
+ * Uses classes and a stack
+ *
+ * @author Logan Kramer
+ * Date: 2/6/20
+ * @version 1.0
+ */
 public class TestDocument {
     public static void main(String[] args) {
         //initialize file and email
