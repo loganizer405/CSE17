@@ -29,7 +29,7 @@ public class Email extends Document { //class inherited from Document
         return subject;
     }
 
-    public void setRecipient(String recipient) { //sets recipient
+    public void setRecipient(String recipient) {
         this.recipient = recipient;
     }
 
